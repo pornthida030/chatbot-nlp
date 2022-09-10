@@ -13,7 +13,14 @@ def webhook():
         payload =request.json
         Reply_token=payload['events'][0]['replyToken']
         message=payload['events'][0]['message']['text']
-        Reply_text="คุณกำลังบอกว่า: "+message
+        # Reply_text="คุณกำลังบอกว่า: "+message
+        if "อาหารที่แนะนำในช่วงนี้" in message:
+            Reply_text="- ข้าวผัดกระเพรา\n- ข้าวผัด\n- ยำมาม่า\n- ก๋วยเตี๋ยวต้มยำ\n - ข้าวหน้าหมูทอด"
+        elif "สวัสดี" in message:
+            Reply_text="สวัสดีค่ะ"
+        else:
+            Reply_text="ขออภัยค่ะ ฉันไม่เข้าใจคำถาม กรุณาถามคำถามใหม่ค่ะ"
+        print(Reply_text,flush=True)
         ReplyMessage(Reply_token,Reply_text,Channel_access_token)
         return request.json,200
     elif request.method=='GET':
